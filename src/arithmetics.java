@@ -9,10 +9,12 @@ public class arithmetics {
         int r = 1;
         int p = 1;
 
-        System.out.println(moduloPower(base,power,mod));
-        System.out.println(base + "^" + power + " mod " + mod + " equals " + moduloPower(base,power,mod));
-        System.out.println("The least power which perform r^(2^i)=1 mod " + mod + " is " + leastPow(r,mod));
-        System.out.println(isQuadricResidue(x,mod));
+
+//        System.out.println(moduloPower(base,power,mod));
+//        System.out.println(base + "^" + power + " mod " + mod + " equals " + moduloPower(base,power,mod));
+//        System.out.println("The least power which perform r^(2^i)=1 mod " + mod + " is " + leastPow(r,mod));
+//        System.out.println(isQuadricResidue(x,mod));
+        System.out.println(isGenerator(1187, 429));
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
@@ -55,6 +57,29 @@ public class arithmetics {
             ans = true;
         }
         return ans;
+    }
+
+    public static boolean isGenerator (int p, int g){ //return true/false rather g is a generator in the multiplying group Fp
+        boolean ans = true;
+        p = p - 1;
+        int[] divisors = divisors(p);
+        for (int i=0; i<divisors.length && divisors[i] != 0 && ans; i++){
+            if ( moduloPower(g, divisors[i], p) == 1 )
+                ans = false;
+        }
+        return ans;
+    }
+
+    private static int[] divisors (int n){ // should be private ??
+        int[] array = new int[n/2];
+        int counter = 0;
+        for (int d=2; d<n; d++){
+            if ( n % d == 0 ){
+                array[counter] = d;
+                counter = counter + 1;
+            }
+        }
+        return array;
     }
 
 }
