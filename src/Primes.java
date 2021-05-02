@@ -5,11 +5,14 @@ public class Primes {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
+        //int n = scanner.nextInt();
         int s = 1, d = 1, k = 1;
-
-        System.out.println(isNaivePrime(n));
-        System.out.println(millerRabinPrimes(n, s, d, k));
+        for (int i=800; i<900; i++){
+            if ( isNaivePrime(i) )
+                System.out.println(i);
+        }
+//        System.out.println(isNaivePrime(n));
+//        System.out.println(millerRabinPrimes(n, s, d, k));
 
         scanner.close();
     }

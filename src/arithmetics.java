@@ -2,19 +2,18 @@ public class arithmetics {
 
     public static void main(String []args){
 
-        int mod = 5;
+        int mod = 14;
         int x = 7;
-        int base = 3;
-        int power = 3;
+        int base = 13;
+        int power = 109;
         int r = 1;
-        int p = 1;
+        int p = 857;
 
-
-//        System.out.println(moduloPower(base,power,mod));
+        System.out.println(moduloPower(base,power,mod));
 //        System.out.println(base + "^" + power + " mod " + mod + " equals " + moduloPower(base,power,mod));
 //        System.out.println("The least power which perform r^(2^i)=1 mod " + mod + " is " + leastPow(r,mod));
-//        System.out.println(isQuadricResidue(x,mod));
-        System.out.println(isGenerator(1187, 429));
+//        System.out.println(isQuadraticResidue(x,mod));
+//        System.out.println(isGenerator(1187, 429));
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
@@ -50,7 +49,7 @@ public class arithmetics {
         return i;
     }
 
-    public static boolean isQuadricResidue (int x, int mod) { //check whether 'x' is a QuadricResidue in finite field
+    public static boolean isQuadraticResidue (int x, int mod) { //check whether 'x' is a QuadricResidue in finite field
         boolean ans = false;
         int a = moduloPower(x, (mod-1)/2, mod);
         if ( a == 1 ) {
@@ -59,7 +58,8 @@ public class arithmetics {
         return ans;
     }
 
-    public static boolean isGenerator (int p, int g){ //return true/false rather g is a generator in the multiplying group Fp
+    public static boolean isGenerator (int p, int g){ //return true/false rather g is a generator in the multiplicative group Fp
+        //TODO: Tests
         boolean ans = true;
         p = p - 1;
         int[] divisors = divisors(p);
@@ -82,4 +82,20 @@ public class arithmetics {
         return array;
     }
 
+    public static void printArray (int[] array){
+        System.out.print("{");
+        for (int i=0; i<array.length-1; i++){
+            System.out.print(array[i] + ",");
+        }
+        System.out.println(array[array.length-1] + "}");
+    }
+
+    public static int findNonQuadraticResidue (int p){ //return an integer that is non-quadratic residue in Zp
+        //TODO: Tests
+        int ans = 2;
+        while ( isQuadraticResidue(ans, p) ){
+            ans = (ans + 1) % p;
+        }
+        return ans;
+    }
 }
