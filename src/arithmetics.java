@@ -2,13 +2,13 @@ public class arithmetics {
 
     public static void main(String []args){
 
-        int mod = 14;
+        int mod = 11251;
         int x = 7;
-        int base = 13;
-        int power = 109;
+        int base = 232;
+        int power = 543;
         int r = 1;
         int p = 857;
-
+        System.out.println(recModuloPower(base, power, mod));
         System.out.println(moduloPower(base,power,mod));
 //        System.out.println(base + "^" + power + " mod " + mod + " equals " + moduloPower(base,power,mod));
 //        System.out.println("The least power which perform r^(2^i)=1 mod " + mod + " is " + leastPow(r,mod));
@@ -34,6 +34,17 @@ public class arithmetics {
         return ans;
     }
 
+    public static int recModuloPower (int base, int power, int mod){
+        int ans = 1;
+        if ( power > 0 ) {
+            ans = recModuloPower(base, power / 2, mod);
+            ans = (ans * ans) % mod;
+            if ( power % 2 == 1 )
+                ans = (ans * base) % mod;
+        }
+        return ans;
+    }
+
     public static int leastPow (int r, int mod) { // returns the least integer, 'i', which perform r^(2^i)=1 mod p
         int i = 0;
         boolean found = false;
@@ -51,7 +62,7 @@ public class arithmetics {
 
     public static boolean isQuadraticResidue (int x, int mod) { //check whether 'x' is a QuadricResidue in finite field
         boolean ans = false;
-        int a = moduloPower(x, (mod-1)/2, mod);
+        int a = recModuloPower(x, (mod-1)/2, mod);
         if ( a == 1 ) {
             ans = true;
         }
@@ -64,7 +75,7 @@ public class arithmetics {
         p = p - 1;
         int[] divisors = divisors(p);
         for (int i=0; i<divisors.length && divisors[i] != 0 && ans; i++){
-            if ( moduloPower(g, divisors[i], p) == 1 )
+            if ( recModuloPower(g, divisors[i], p) == 1 )
                 ans = false;
         }
         return ans;

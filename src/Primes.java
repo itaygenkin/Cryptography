@@ -7,11 +7,11 @@ public class Primes {
         Scanner scanner = new Scanner(System.in);
         //int n = scanner.nextInt();
         int s = 1, d = 1, k = 1;
-        for (int i=800; i<900; i++){
-            if ( isNaivePrime(i) )
-                System.out.println(i);
-        }
-//        System.out.println(isNaivePrime(n));
+//        for (int i=800; i<900; i++){
+//            if ( isNaivePrime(i) )
+//                System.out.println(i);
+//        }
+        System.out.println(isNaivePrime(11251));
 //        System.out.println(millerRabinPrimes(n, s, d, k));
 
         scanner.close();
@@ -26,7 +26,8 @@ public class Primes {
         return isPrime;
     }
 
-    public static boolean millerRabinPrimes (int n, int s, int d, int k) { //TODO: adding notes and variables meaning
+    public static boolean millerRabinPrimes (int n, int s, int d, int k) {
+        //TODO: adding notes and variables meaning
         boolean ans = true;
 
         for (int i=1; i <= k && ans; i++ ){

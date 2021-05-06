@@ -4,16 +4,16 @@ public class TonelliShanks {
         System.out.println(ShanksAlgorithm(257, 1));
     }
 
-    public static int ShanksAlgorithm (int p, int a){ //return one of quadratic residue of 'a' modulo 'p' (for the second residue compute p-<return value>
+    public static int ShanksAlgorithm (int p, int a){ //return one of the quadratic residues of 'a' modulo 'p' (for the second residue compute p-<return value>)
         int n = evenOdd(p)[0];
         int k = evenOdd(p)[1];
-        int t = arithmetics.moduloPower(a, (k+1)/2, p);
-        int r = arithmetics.moduloPower(a, k, p);
+        int t = arithmetics.recModuloPower(a, (k+1)/2, p);
+        int r = arithmetics.recModuloPower(a, k, p);
         int i = arithmetics.leastPow(r, p);
         int q = arithmetics.findNonQuadraticResidue(p);
         while ( i != 0 ){
             int power = (int) (k * (Math.pow(2,n-i-1)));
-            int u = arithmetics.moduloPower(q, power, p);
+            int u = arithmetics.recModuloPower(q, power, p);
             t = (t * u) % p;
             r = (((r * u) % p) * u) % p;
             i = arithmetics.leastPow(r, p);
