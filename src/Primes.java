@@ -64,7 +64,7 @@ public class Primes {
             double random = Math.random();
             random = random * (n-2) + 2;
             int b = (int) random;
-            int b2 = b;
+            final int b2 = b; // should be final?
 
             for (int j=1; j<d; j++){
                 b = b * b2;
