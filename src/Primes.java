@@ -53,4 +53,34 @@ public class Primes {
         return ans;
     }
 
+    public static boolean millerRabinPrimes (int n, int k) {
+        //TODO: tests, adding notes and variables meaning
+        int s = TonelliShanks.evenOdd(n)[0];
+        int d = TonelliShanks.evenOdd(n)[1];
+
+        boolean ans = true;
+
+        for (int i=1; i <= k && ans; i++ ){
+            double random = Math.random();
+            random = random * (n-2) + 2;
+            int b = (int) random;
+            int b2 = b;
+
+            for (int j=1; j<d; j++){
+                b = b * b2;
+                b = b % n;
+            }
+            if ( b != 1 && b != n-1 )
+                ans = false;
+
+            for (int j=1; j<s && !ans; j=j+1){
+                b = b * b;
+                b = b % n;
+                if ( b == n-1 )
+                    ans = true;
+            }
+        }
+        return ans;
+    }
+
 }
