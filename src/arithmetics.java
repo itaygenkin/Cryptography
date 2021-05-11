@@ -109,4 +109,6 @@ public class arithmetics {
         }
         return ans;
     }
+
+    //Todo: add euclid's algorithm
 }
