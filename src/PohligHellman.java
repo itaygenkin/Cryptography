@@ -4,11 +4,11 @@ public class PohligHellman {
 
     public static void main (String[] args){
         Scanner myScan = new Scanner(System.in);
-        int[] polynom1 = {2,1,6,3,5,1,2,1};
-        int[] polynom2 = {3,1};
+        int[] polynom1 = {5,2,5,5};
+        int[] polynom2 = {3,1,3,6};
         int[] polynomMod = {6,3,3,3,1};
 
-        int[] pol = dividePolynomials(polynom1, polynomMod, 7);
+        int[] pol = dividePolynomials(polynom1, polynom2, 7);
 
         arithmetics.printArray(pol);
 //        arithmetics.printArray(powerPolynom(polynom1, polynomMod, 15, 7));
@@ -75,14 +75,16 @@ public class PohligHellman {
     }
 
     public static int[] dividePolynomials (int[] pol1, int[] pol2, int mod){
-        if ( pol1.length < pol2.length )
+        if ( mod < 2 )
+            throw new IllegalArgumentException("modulo must be greater than 1");
+        // validating that the polynomials are well defined
+        pol1 = reduceSize(pol1);
+        positiveDisplay(pol1, mod);
+        pol2 = reduceSize(pol2);
+        positiveDisplay(pol2, mod);
+
+        if ( pol1.length < pol2.length ) // it means that deg('pol1') < deg('pol2') so the quotient will be zero
             return new int[]{0};
-        else if ( pol1.length == pol2.length ){ // It means that the degree of the quotient is 0
-            int n = pol1.length-1;
-            int a = pol1[n];
-            int b = arithmetics.inverseNumber(pol2[n], mod);
-            return new int[] { (a * b) % mod };
-        }
         else{
             int index = pol1.length - pol2.length;
             int currIndex = 0;
@@ -108,7 +110,7 @@ public class PohligHellman {
     public static int[] reduceSize(int[] array){ //reduce the the length of an array which ends with series of 0's
         int counter = 0;
         int index = array.length - 1;
-        while ( index > 0 && array[index] == 0 ){ // until index==1 beacuse we don't want an empty array
+        while ( index > 0 && array[index] == 0 ){ // until index==1 because we don't want an empty array
             counter = counter + 1;
             index = index - 1;
         }
