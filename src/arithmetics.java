@@ -8,8 +8,8 @@ public class arithmetics {
         int power = 543;
         int r = 1;
         int p = 857;
-        System.out.println(recModuloPower(base, power, mod));
-        System.out.println(moduloPower(base,power,mod));
+
+        printArray(euclid(60, 30));
 //        System.out.println(base + "^" + power + " mod " + mod + " equals " + moduloPower(base,power,mod));
 //        System.out.println("The least power which perform r^(2^i)=1 mod " + mod + " is " + leastPow(r,mod));
 //        System.out.println(isQuadraticResidue(x,mod));
@@ -34,7 +34,7 @@ public class arithmetics {
         return ans;
     }
 
-    public static int recModuloPower (int base, int power, int mod){
+    public static int recModuloPower (int base, int power, int mod){ // Recursively calculates power in finite field
         int ans = 1;
         if ( power > 0 ) {
             ans = recModuloPower(base, power / 2, mod);
@@ -110,5 +110,57 @@ public class arithmetics {
         return ans;
     }
 
-    //Todo: add euclid's algorithm
+    public static int gcd (int n, int k){
+        int r = n % k;
+        while ( r != 0 ){
+            n = k;
+            k = r;
+            r = n % k;
+        }
+        return k;
+    }
+
+    public static int[] euclid (int m, int n){
+        if ( m < n )
+            return euclid(n, m);
+        int d = gcd(m, n);
+        int[] mArray = {1,0};
+        int[] nArray = {0,1};
+        int q = m / n;
+        int r = m % n;
+        if ( r == 0 ){
+            if ( m > n )
+                return nArray;
+            else
+                return mArray;
+        }
+        int[] ans = extractArr(mArray, nArray, q);
+        while ( r != d ){
+            m = n;
+            n = r;
+            q = m / n;
+            r = m % n;
+            mArray = nArray;
+            nArray = ans;
+            ans = extractArr(mArray, nArray, q);
+        }
+        return ans;
+    }
+
+    protected static int[] extractArr (int[] arr1, int[] arr2, int q){
+        int n = Math.min(arr1.length, arr2.length);
+        int[] output = new int[n];
+        for (int i=0; i<n ; i++){
+            output[i] = arr1[i] - q * arr2[i];
+        }
+        return output;
+    }
+
+    public static int inverseNumber (int n, int p){ // return the inverse number of 'n' in Zp
+        int num = euclid(p, n)[1];
+        if ( num < 0 )
+            num = ( num + p ) % p;
+        return num;
+    }
+
 }
