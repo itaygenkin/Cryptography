@@ -4,13 +4,16 @@ public class PohligHellman {
 
     public static void main (String[] args){
         Scanner myScan = new Scanner(System.in);
-        int[] polynom1 = {2,6,1};
-        int[] polynom2 = {3,1,3,6};
+        int[] polynom1 = {0,4,4,5}; //Todo: debug power of 150
+        int[] polynom2 = {3,1};
+        int[] polynom3 = {0,6,0,5}; //75
         int[] polynomMod = {6,3,3,3,1};
 
-        int[] pol = powerPolynomial(polynom1, polynomMod, 5, 7);
+        int[] pol1 = powerPolynomial(polynom2, polynomMod, 317, 7);
+        int[] pol2 = powerPolynomial(polynom2, polynomMod, 96, 7);
 
-        arithmetics.printArray(pol);
+        arithmetics.printArray(pol1);
+        arithmetics.printArray(pol2);
 
         myScan.close();
     }

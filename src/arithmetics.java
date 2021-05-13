@@ -8,12 +8,8 @@ public class arithmetics {
         int power = 543;
         int r = 1;
         int p = 857;
+        System.out.println(inverseNumber(32,75));
 
-        printArray(euclid(60, 30));
-//        System.out.println(base + "^" + power + " mod " + mod + " equals " + moduloPower(base,power,mod));
-//        System.out.println("The least power which perform r^(2^i)=1 mod " + mod + " is " + leastPow(r,mod));
-//        System.out.println(isQuadraticResidue(x,mod));
-//        System.out.println(isGenerator(1187, 429));
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
