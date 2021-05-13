@@ -4,28 +4,15 @@ public class PohligHellman {
 
     public static void main (String[] args){
         Scanner myScan = new Scanner(System.in);
-        int[] polynom1 = {5,2,5,5};
+        int[] polynom1 = {2,6,1};
         int[] polynom2 = {3,1,3,6};
         int[] polynomMod = {6,3,3,3,1};
 
-        int[] pol = dividePolynomials(polynom1, polynom2, 7);
+        int[] pol = powerPolynomial(polynom1, polynomMod, 5, 7);
 
         arithmetics.printArray(pol);
-//        arithmetics.printArray(powerPolynom(polynom1, polynomMod, 15, 7));
 
         myScan.close();
-    }
-
-    public static void polynomialModulo(int[] pol, int[] polMod, int mod){
-        if ( pol.length == polMod.length ){
-            int reducer = pol[pol.length-1];
-            for (int i=0; i<polMod.length; i++){
-                pol[i] = pol[i] - reducer * polMod[i];
-                while ( pol[i] < 0 )
-                    pol[i] = (pol[i] + mod) % mod;
-                pol[i] = pol[i] % mod;
-            }
-        }
     }
 
     public static int[] multiplyPolynomials(int[] pol1, int[] pol2, int mod){ // Multiplying 2 polynomials in finite field
@@ -44,20 +31,19 @@ public class PohligHellman {
         return reduceSize(ans);
     }
 
-    public static int[] powerPolynom (int[] pol, int[] polMod, int power, int mod){
-        //Todo: might be completed when 'polynomialRemainder' is completed
+    public static int[] powerPolynomial (int[] pol, int[] polMod, int power, int mod){
         int[] ans = {1};
-        for (int i=0; i<power; i++){
+        for (int i=1; i <= power ; i++){
             ans = multiplyPolynomials(ans, pol, mod);
-            polynomialModulo(ans, polMod, mod);
+            polynomialRemainder(ans, polMod, mod);
+            positiveDisplay(ans, mod);
+            ans = reduceSize(ans);
         }
         return reduceSize(ans);
     }
 
     public static int[] polynomialRemainder (int[] pol, int[] polMod, int mod){
-        //Todo: complete
         if ( pol.length >= polMod.length ){
-            int index = polMod.length-1;
             int[] temp = dividePolynomials(pol, polMod, mod);
             temp = multiplyPolynomials(temp, polMod, mod);
             return extractPolynomials(pol, temp, mod);
@@ -91,7 +77,7 @@ public class PohligHellman {
             int[] ans = new int[index + 1];
 
             while ( index >= 0 ){
-                int k = pol1[pol1.length-currIndex-1]; // current coefficient we wish to divide
+                int k = pol1[pol1.length-1]; // current coefficient we wish to divide (pol1[pol1.length-currIndex-1])
                 int m = pol2[pol2.length-1]; // the leading coefficient divisor
                 m = arithmetics.inverseNumber(m, mod); // the inverse number of 'm'
                 ans[index] = (k * m) % mod;
