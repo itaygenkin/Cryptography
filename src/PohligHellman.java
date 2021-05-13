@@ -77,7 +77,7 @@ public class PohligHellman {
             int[] ans = new int[index + 1];
 
             while ( index >= 0 ){
-                int k = pol1[pol1.length-1]; // current coefficient we wish to divide (pol1[pol1.length-currIndex-1])
+                int k = pol1[pol1.length-1]; // current coefficient we wish to divide
                 int m = pol2[pol2.length-1]; // the leading coefficient divisor
                 m = arithmetics.inverseNumber(m, mod); // the inverse number of 'm'
                 ans[index] = (k * m) % mod;
