@@ -11,8 +11,8 @@ public class Primes {
 //            if ( isNaivePrime(i) )
 //                System.out.println(i);
 //        }
-        System.out.println(isNaivePrime(11251));
-//        System.out.println(millerRabinPrimes(n, s, d, k));
+        System.out.println(isNaivePrime(7919));
+        System.out.println(millerRabinPrimes(7919, 128));
 
         scanner.close();
     }

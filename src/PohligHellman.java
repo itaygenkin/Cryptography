@@ -4,16 +4,39 @@ public class PohligHellman {
 
     public static void main (String[] args){
         Scanner myScan = new Scanner(System.in);
-        int[] polynom1 = {0,4,4,5}; //Todo: debug power of 150
-        int[] polynom2 = {3,1};
-        int[] polynom3 = {0,6,0,5}; //75
-        int[] polynomMod = {6,3,3,3,1};
+//        int[] polynom1 = {0,4,4,5}; //Todo: debug power of 150
+//        int[] polynom2 = {3,1};
+//        int[] polynom3 = {0,6,0,5}; //75
+//        int[] polynomMod = {6,3,3,3,1};
+//
+//        int[] pol1 = powerPolynomial(polynom2, polynomMod, 317, 7);
+//        int[] pol2 = powerPolynomial(polynom2, polynomMod, 96, 7);
 
-        int[] pol1 = powerPolynomial(polynom2, polynomMod, 317, 7);
-        int[] pol2 = powerPolynomial(polynom2, polynomMod, 96, 7);
+        int mod = 5;
+        int[] p = {3,1,0,1};
+        int[] R = {0,0,0,0,1};
+        int[] inverseP = {2,1,3};
+        int[] inverseR = {4,2};
+        int[] f = {1,1};
 
-        arithmetics.printArray(pol1);
-        arithmetics.printArray(pol2);
+        int[] a = multiplyPolynomials(f, R, mod);
+        a = polynomialRemainder(a, p, mod);
+        int[] z = multiplyPolynomials(a, a, mod);
+        int[] inv = {-1};
+        int[] z1 = polynomialRemainder(z, p, mod);
+        z1 = multiplyPolynomials(z1, inv, mod);
+        int[] u = multiplyPolynomials(z1, inverseP, mod);
+        u = polynomialRemainder(u, R, mod);
+        int[] Z = multiplyPolynomials(u, p, mod);
+
+        positiveDisplay(a, mod);
+        arithmetics.printArray(a);
+        positiveDisplay(z, mod);
+        arithmetics.printArray(z);
+        positiveDisplay(u, mod);
+        arithmetics.printArray(u);
+        positiveDisplay(Z, mod);
+        arithmetics.printArray(Z);
 
         myScan.close();
     }
@@ -117,5 +140,7 @@ public class PohligHellman {
             pol[i] = pol[i] % mod;
         }
     }
+
+    //TODO: baby step - giant step algorithm using hash-table
 
 }

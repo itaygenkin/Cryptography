@@ -2,14 +2,16 @@ public class arithmetics {
 
     public static void main(String []args){
 
-        int mod = 11251;
-        int x = 7;
-        int base = 232;
-        int power = 543;
+        int mod = 7919;
+        int base = 150;
+        int power = 20;
         int r = 1;
-        int p = 857;
-        System.out.println(inverseNumber(32,75));
 
+        //System.out.println(recModuloPower(base,power,mod));
+        for (int i=2; i < 13; i++){
+            if ( isGenerator(13,i) )
+                System.out.println(i);
+        }
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
@@ -56,7 +58,7 @@ public class arithmetics {
         return i;
     }
 
-    public static boolean isQuadraticResidue (int x, int mod) { //check whether 'x' is a QuadricResidue in finite field
+    public static boolean isQuadraticResidue (int x, int mod) { //check whether 'x' is a QuadraticResidue in finite field
         boolean ans = false;
         int a = recModuloPower(x, (mod-1)/2, mod);
         if ( a == 1 ) {
@@ -65,22 +67,19 @@ public class arithmetics {
         return ans;
     }
 
-    public static boolean isGenerator (int p, int g){ //return true/false rather g is a generator in the multiplicative group Fp
-        //TODO: Tests
-        boolean ans = true;
-        p = p - 1;
-        int[] divisors = divisors(p);
-        for (int i=0; i<divisors.length && divisors[i] != 0 && ans; i++){
-            if ( recModuloPower(g, divisors[i], p) == 1 )
-                ans = false;
+    public static boolean isGenerator (int n, int g){ //return true/false rather g is a generator in the multiplicative group Z/n
+        int[] divisors = divisors(n-1);
+        for (int i=0; i<divisors.length && divisors[i] != 0; i++){
+            if ( recModuloPower(g, divisors[i], n) == 1 )
+                return false;
         }
-        return ans;
+        return true;
     }
 
-    private static int[] divisors (int n){ // should be private ??
+    public static int[] divisors (int n){ //return an array of the divisors of n except 1 and n
         int[] array = new int[n/2];
         int counter = 0;
-        for (int d=2; d<n; d++){
+        for (int d=2; d < n; d++){
             if ( n % d == 0 ){
                 array[counter] = d;
                 counter = counter + 1;
@@ -97,7 +96,7 @@ public class arithmetics {
         System.out.println(array[array.length-1] + "}");
     }
 
-    public static int findNonQuadraticResidue (int p){ //return an integer that is non-quadratic residue in Zp
+    public static int findNonQuadraticResidue (int p){ //return an integer that is non-quadratic residue in F_p
         //TODO: Tests
         int ans = 2;
         while ( isQuadraticResidue(ans, p) ){
@@ -146,17 +145,18 @@ public class arithmetics {
     protected static int[] extractArr (int[] arr1, int[] arr2, int q){
         int n = Math.min(arr1.length, arr2.length);
         int[] output = new int[n];
-        for (int i=0; i<n ; i++){
+        for (int i=0; i < n ; i++){
             output[i] = arr1[i] - q * arr2[i];
         }
         return output;
     }
 
-    public static int inverseNumber (int n, int p){ // return the inverse number of 'n' in Zp
+    public static int inverseNumber (int n, int p){ // return the inverse number of 'n' in F_p
         int num = euclid(p, n)[1];
         if ( num < 0 )
             num = ( num + p ) % p;
         return num;
     }
+    //TODO: euclid for polynomials and inverse-polynomial
 
 }
