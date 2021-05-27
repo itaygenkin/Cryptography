@@ -4,39 +4,15 @@ public class PohligHellman {
 
     public static void main (String[] args){
         Scanner myScan = new Scanner(System.in);
-//        int[] polynom1 = {0,4,4,5}; //Todo: debug power of 150
-//        int[] polynom2 = {3,1};
-//        int[] polynom3 = {0,6,0,5}; //75
-//        int[] polynomMod = {6,3,3,3,1};
-//
-//        int[] pol1 = powerPolynomial(polynom2, polynomMod, 317, 7);
-//        int[] pol2 = powerPolynomial(polynom2, polynomMod, 96, 7);
+        int[] p1 = {0,4,4,5};
+        int[] p2 = {3,1};
+        int[] p75 = {0,6,0,5}; //75
+        int[] pMod = {6,3,3,3,1};
 
-        int mod = 5;
-        int[] p = {3,1,0,1};
-        int[] R = {0,0,0,0,1};
-        int[] inverseP = {2,1,3};
-        int[] inverseR = {4,2};
-        int[] f = {1,1};
-
-        int[] a = multiplyPolynomials(f, R, mod);
-        a = polynomialRemainder(a, p, mod);
-        int[] z = multiplyPolynomials(a, a, mod);
-        int[] inv = {-1};
-        int[] z1 = polynomialRemainder(z, p, mod);
-        z1 = multiplyPolynomials(z1, inv, mod);
-        int[] u = multiplyPolynomials(z1, inverseP, mod);
-        u = polynomialRemainder(u, R, mod);
-        int[] Z = multiplyPolynomials(u, p, mod);
-
-        positiveDisplay(a, mod);
-        arithmetics.printArray(a);
-        positiveDisplay(z, mod);
-        arithmetics.printArray(z);
-        positiveDisplay(u, mod);
-        arithmetics.printArray(u);
-        positiveDisplay(Z, mod);
-        arithmetics.printArray(Z);
+        int[] pol1 = powerPolynomial(p1, pMod, 75, 7);
+        int[] pol2 = powerPolynomial(p2, pMod, 75, 7);
+        arithmetics.printArray(pol1);
+        arithmetics.printArray(pol2);
 
         myScan.close();
     }
@@ -80,7 +56,7 @@ public class PohligHellman {
     public static int[] extractPolynomials(int[] pol1, int[] pol2, int mod){
         int n = Math.min(pol1.length, pol2.length);
         for (int i=0; i < n ; i++ ){
-            int curr = ( pol1[i]-pol2[i] ) % mod;
+            int curr = ( pol1[i] - pol2[i] ) % mod;
             pol1[i] = curr;
         }
         return reduceSize(pol1);
@@ -99,21 +75,27 @@ public class PohligHellman {
             return new int[]{0};
         else{
             int index = pol1.length - pol2.length;
-            int currIndex = 0;
-            int[] ans = new int[index + 1];
+            int[] ans = new int[index+1];
 
             while ( index >= 0 ){
                 int k = pol1[pol1.length-1]; // current coefficient we wish to divide
                 int m = pol2[pol2.length-1]; // the leading coefficient divisor
                 m = arithmetics.inverseNumber(m, mod); // the inverse number of 'm'
                 ans[index] = (k * m) % mod;
-                int[] temp = new int[index+1]; // 'temp' is the 'current quotient'
-                temp[index] = ans[index];
-                temp = multiplyPolynomials(pol2, temp ,mod);
-                pol1 = extractPolynomials(pol1, temp, mod);
+                int[] currQuotient = new int[index+1]; // 'temp' is the 'current quotient'
+                currQuotient[index] = ans[index];
+                currQuotient = multiplyPolynomials(pol2, currQuotient ,mod);
+                int currLength = pol1.length - 1;
+                pol1 = extractPolynomials(pol1, currQuotient, mod);
+                if ( pol1.length != currLength ){
+                    int[] temp = new int[currLength];
+                    for (int i=0; i<pol1.length; i++){
+                        temp[i] = pol1[i];
+                    }
+                    pol1 = temp;
+                }
                 positiveDisplay(pol1, mod); // we would rather positive-display of the coefficient of the polynomial
                 index = index - 1;
-                currIndex = currIndex + 1;
             }
             return ans;
         }
