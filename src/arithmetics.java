@@ -7,11 +7,13 @@ public class arithmetics {
         int power = 20;
         int r = 1;
 
-        //System.out.println(recModuloPower(base,power,mod));
-        for (int i=2; i < 13; i++){
-            if ( isGenerator(13,i) )
-                System.out.println(i);
-        }
+//        System.out.println(7 + "-->" + findQuadraticNonResidue(7));
+        System.out.println(14 + "-->" + findQuadraticNonResidue(14));
+        System.out.println(17 + "-->" + findQuadraticNonResidue(17));
+        System.out.println(23 + "-->" + findQuadraticNonResidue(23));
+        System.out.println(31 + "-->" + findQuadraticNonResidue(31));
+        System.out.println(34 + "-->" + findQuadraticNonResidue(34));
+        System.out.println(49 + "-->" + findQuadraticNonResidue(49));
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
@@ -96,11 +98,11 @@ public class arithmetics {
         System.out.println(array[array.length-1] + "}");
     }
 
-    public static int findNonQuadraticResidue (int p){ //return an integer that is non-quadratic residue in F_p
-        //TODO: Tests
+    public static int findQuadraticNonResidue (int p){ //return first integer that is quadratic non-residue in F_p where p is power of an odd prime number
+        //TODO: optimize for every integer greater than 2
         int ans = 2;
-        while ( isQuadraticResidue(ans, p) ){
-            ans = (ans + 1) % p;
+        while ( ans < p && isQuadraticResidue(ans, p) ){
+            ans = ans + 1;
         }
         return ans;
     }

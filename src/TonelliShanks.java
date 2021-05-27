@@ -10,7 +10,7 @@ public class TonelliShanks {
         int t = arithmetics.recModuloPower(a, (k+1)/2, p);
         int r = arithmetics.recModuloPower(a, k, p);
         int i = arithmetics.leastPow(r, p);
-        int q = arithmetics.findNonQuadraticResidue(p);
+        int q = arithmetics.findQuadraticNonResidue(p);
         while ( i != 0 ){
             int power = (int) (k * (Math.pow(2,n-i-1)));
             int u = arithmetics.recModuloPower(q, power, p);
