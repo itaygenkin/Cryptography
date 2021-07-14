@@ -1,10 +1,11 @@
 public class TonelliShanks {
 
     public static void main (String[] args){
-        System.out.println(ShanksAlgorithm(257, 1));
+        System.out.println(ShanksAlgorithm(127, 30));
     }
 
-    public static int ShanksAlgorithm (int p, int a){ //return one of the quadratic residues of 'a' modulo 'p' (for the second residue compute p-<return value>)
+    //return one of the quadratic residues of 'a' modulo 'p' (for the second residue compute p-<return value>)
+    public static int ShanksAlgorithm (int p, int a){
         int n = evenOdd(p)[0];
         int k = evenOdd(p)[1];
         int t = arithmetics.recModuloPower(a, (k+1)/2, p);

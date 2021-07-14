@@ -4,16 +4,6 @@ public class PohligHellman {
 
     public static void main (String[] args){
         Scanner myScan = new Scanner(System.in);
-        int[] p1 = {0,4,4,5};
-        int[] p2 = {3,1};
-        int[] p75 = {0,6,0,5}; //75
-        int[] pMod = {6,3,3,3,1};
-
-        int[] pol1 = powerPolynomial(p1, pMod, 75, 7);
-        int[] pol2 = powerPolynomial(p2, pMod, 75, 7);
-        arithmetics.printArray(pol1);
-        arithmetics.printArray(pol2);
-        printPolynomial(pol1);
 
         myScan.close();
     }
@@ -142,3 +132,15 @@ public class PohligHellman {
     //TODO: baby step - giant step algorithm using hash-table
 
 }
+
+/*
+        int[] p1 = {0,4,4,5};
+        int[] p2 = {3,1};
+        int[] p75 = {0,6,0,5};
+        int[] pMod = {6,3,3,3,1};
+
+        int[] pol1 = powerPolynomial(p1, pMod, 75, 7);
+        int[] pol2 = powerPolynomial(p2, pMod, 75, 7);
+        arithmetics.printArray(pol1);
+        arithmetics.printArray(pol2);
+ */

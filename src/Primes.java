@@ -7,12 +7,9 @@ public class Primes {
         Scanner scanner = new Scanner(System.in);
         //int n = scanner.nextInt();
         int s = 1, d = 1, k = 1;
-//        for (int i=800; i<900; i++){
-//            if ( isNaivePrime(i) )
-//                System.out.println(i);
-//        }
-        System.out.println(isNaivePrime(7919));
-        System.out.println(millerRabinPrimes(7919, 128));
+        int p = 2011;
+        System.out.println(isNaivePrime(p));
+        System.out.println(millerRabinPrimes(p, 128));
 
         scanner.close();
     }

@@ -2,18 +2,22 @@ public class arithmetics {
 
     public static void main(String []args){
 
-        int mod = 7919;
-        int base = 150;
-        int power = 20;
+        int mod = 127;
+        int base = 8;
+        int power = 23;
         int r = 1;
 
+        printArray(divisors(1007));
+        System.out.println(inverseNumber(40,127));
+        System.out.println(moduloPower(243,315,857));
+
 //        System.out.println(7 + "-->" + findQuadraticNonResidue(7));
-        System.out.println(14 + "-->" + findQuadraticNonResidue(14));
-        System.out.println(17 + "-->" + findQuadraticNonResidue(17));
-        System.out.println(23 + "-->" + findQuadraticNonResidue(23));
-        System.out.println(31 + "-->" + findQuadraticNonResidue(31));
-        System.out.println(34 + "-->" + findQuadraticNonResidue(34));
-        System.out.println(49 + "-->" + findQuadraticNonResidue(49));
+//        System.out.println(14 + "-->" + findQuadraticNonResidue(14));
+//        System.out.println(17 + "-->" + findQuadraticNonResidue(17));
+//        System.out.println(23 + "-->" + findQuadraticNonResidue(23));
+//        System.out.println(31 + "-->" + findQuadraticNonResidue(31));
+//        System.out.println(34 + "-->" + findQuadraticNonResidue(34));
+//        System.out.println(49 + "-->" + findQuadraticNonResidue(49));
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
@@ -87,7 +91,16 @@ public class arithmetics {
                 counter = counter + 1;
             }
         }
-        return array;
+        int length = 0;
+        int index = 0;
+        while ( array[index] > 0 )
+            length = length + 1;
+
+        int[] arr = new int[length];
+        for (int i=0; i < length; i++){
+            arr[i] = array[i];
+        }
+        return arr;
     }
 
     public static void printArray (int[] array){
