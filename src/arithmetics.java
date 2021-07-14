@@ -2,14 +2,13 @@ public class arithmetics {
 
     public static void main(String []args){
 
-        int mod = 127;
-        int base = 8;
-        int power = 23;
+        int mod = 857;
+        int base = 548;
+        int power = 109;
         int r = 1;
 
-        printArray(divisors(1007));
-        System.out.println(inverseNumber(40,127));
-        System.out.println(moduloPower(243,315,857));
+        System.out.println(recModuloPower(base,power,mod));
+        System.out.println(moduloPower(base,power,mod));
 
 //        System.out.println(7 + "-->" + findQuadraticNonResidue(7));
 //        System.out.println(14 + "-->" + findQuadraticNonResidue(14));
@@ -31,7 +30,7 @@ public class arithmetics {
 
     public static int moduloPower (int base, int power, int mod) { //calculates power in finite field
         int ans = 1;
-        for (int i=0; i<power; i=i+1) {
+        for (int i=0; i < power; i=i+1) {
             ans = ans * base;
             ans = ans % mod;
         }
@@ -83,6 +82,7 @@ public class arithmetics {
     }
 
     public static int[] divisors (int n){ //return an array of the divisors of n except 1 and n
+        //TODO: tests
         int[] array = new int[n/2];
         int counter = 0;
         for (int d=2; d < n; d++){
