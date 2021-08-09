@@ -1,4 +1,4 @@
-public class arithmetics {
+public class Arithmetics {
 
     public static void main(String []args){
 
@@ -7,16 +7,9 @@ public class arithmetics {
         int power = 109;
         int r = 1;
 
-        System.out.println(recModuloPower(base,power,mod));
-        System.out.println(moduloPower(base,power,mod));
+//        System.out.println(recModuloPower(base,power,mod));
+//        System.out.println(moduloPower(base,power,mod));
 
-//        System.out.println(7 + "-->" + findQuadraticNonResidue(7));
-//        System.out.println(14 + "-->" + findQuadraticNonResidue(14));
-//        System.out.println(17 + "-->" + findQuadraticNonResidue(17));
-//        System.out.println(23 + "-->" + findQuadraticNonResidue(23));
-//        System.out.println(31 + "-->" + findQuadraticNonResidue(31));
-//        System.out.println(34 + "-->" + findQuadraticNonResidue(34));
-//        System.out.println(49 + "-->" + findQuadraticNonResidue(49));
     }
 
     public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
@@ -74,7 +67,7 @@ public class arithmetics {
 
     public static boolean isGenerator (int n, int g){ //return true/false rather g is a generator in the multiplicative group Z/n
         int[] divisors = divisors(n-1);
-        for (int i=0; i<divisors.length && divisors[i] != 0; i++){
+        for (int i=0; i < divisors.length && divisors[i] != 0; i++){
             if ( recModuloPower(g, divisors[i], n) == 1 )
                 return false;
         }
@@ -82,33 +75,56 @@ public class arithmetics {
     }
 
     public static int[] divisors (int n){ //return an array of the divisors of n except 1 and n
-        //TODO: tests
         int[] array = new int[n/2];
-        int counter = 0;
-        for (int d=2; d < n; d++){
+        int index = 0;
+        for (int d=2; d <= n/2; d++){
             if ( n % d == 0 ){
-                array[counter] = d;
-                counter = counter + 1;
+                array[index] = d;
+                index = index + 1;
             }
         }
-        int length = 0;
-        int index = 0;
-        while ( array[index] > 0 )
-            length = length + 1;
-
-        int[] arr = new int[length];
-        for (int i=0; i < length; i++){
+        int[] arr = new int[index];
+        for (int i=0; i < arr.length; i++){
             arr[i] = array[i];
         }
         return arr;
     }
 
-    public static void printArray (int[] array){
-        System.out.print("{");
-        for (int i=0; i<array.length-1; i++){
-            System.out.print(array[i] + ",");
+    public static int[][] primeDivisors(int n){ //returns a two-dimension array of all the prime divisors and its power
+        int[][] array = new int[n/2][2];
+        int index = 0;
+        int d = 2;
+        while ( n > 1 ){
+            int counter = 0;
+            if ( n % d == 0 ){
+                array[index][0] = d;
+                while ( n % d == 0 ){
+                    n = n / d;
+                    counter = counter + 1;
+                }
+                array[index][1] = counter;
+                index = index + 1;
+            }
+            d = d + 1;
         }
-        System.out.println(array[array.length-1] + "}");
+        int[][] output = new int[index][2];
+        for (int i=0; i < output.length; i++ ){
+            output[i][0] = array[i][0];
+            output[i][1] = array[i][1];
+        }
+        return output;
+    }
+
+    public static void printArray (int[] array){
+        if ( array.length == 0 )
+            System.out.println("{}");
+        else{
+            System.out.print("{");
+            for (int i=0; i<array.length-1; i++){
+                System.out.print(array[i] + ",");
+            }
+            System.out.println(array[array.length-1] + "}");
+        }
     }
 
     public static int findQuadraticNonResidue (int p){ //return first integer that is quadratic non-residue in F_p where p is power of an odd prime number
@@ -120,7 +136,7 @@ public class arithmetics {
         return ans;
     }
 
-    public static int gcd (int n, int k){
+    public static int gcd (int n, int k){ // mom-recursive gcd
         int r = n % k;
         while ( r != 0 ){
             n = k;
@@ -128,6 +144,13 @@ public class arithmetics {
             r = n % k;
         }
         return k;
+    }
+
+    public static int GCD (int n, int k){ // recursive gcd
+        if ( k == 0 )
+            return n;
+        else
+            return GCD(k, n % k);
     }
 
     public static int[] euclid (int m, int n){
@@ -172,6 +195,7 @@ public class arithmetics {
             num = ( num + p ) % p;
         return num;
     }
+
     //TODO: euclid for polynomials and inverse-polynomial
 
 }

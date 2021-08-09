@@ -8,16 +8,16 @@ public class TonelliShanks {
     public static int ShanksAlgorithm (int p, int a){
         int n = evenOdd(p)[0];
         int k = evenOdd(p)[1];
-        int t = arithmetics.recModuloPower(a, (k+1)/2, p);
-        int r = arithmetics.recModuloPower(a, k, p);
-        int i = arithmetics.leastPow(r, p);
-        int q = arithmetics.findQuadraticNonResidue(p);
+        int t = Arithmetics.recModuloPower(a, (k+1)/2, p);
+        int r = Arithmetics.recModuloPower(a, k, p);
+        int i = Arithmetics.leastPow(r, p);
+        int q = Arithmetics.findQuadraticNonResidue(p);
         while ( i != 0 ){
             int power = (int) (k * (Math.pow(2,n-i-1)));
-            int u = arithmetics.recModuloPower(q, power, p);
+            int u = Arithmetics.recModuloPower(q, power, p);
             t = (t * u) % p;
             r = (((r * u) % p) * u) % p;
-            i = arithmetics.leastPow(r, p);
+            i = Arithmetics.leastPow(r, p);
         }
         if ( t == 1 )
             return p-1;
