@@ -136,7 +136,7 @@ public class Arithmetics {
         return ans;
     }
 
-    public static int gcd (int n, int k){ // non-recursive gcd
+    public static int gcd (int n, int k){ // iterative gcd
         int r = n % k;
         while ( r != 0 ){
             n = k;
