@@ -16,7 +16,7 @@ public class Primes {
 
     public static boolean isNaivePrime (int p) {
         boolean isPrime = true;
-        for (int d=2; d*d <= p && isPrime; d++ ){
+        for (int d = 2; d * d <= p && isPrime; d++ ){
             if ( p % d == 0 )
                 isPrime = false;
         }
@@ -27,20 +27,20 @@ public class Primes {
         //TODO: adding notes and variables meaning
         boolean ans = true;
 
-        for (int i=1; i <= k && ans; i++ ){
+        for (int i = 1; i <= k && ans; i++ ){
             double random = Math.random();
             random = random * (n-2) + 2;
             int b = (int) random;
             int b2 = b;
 
-            for (int j=1; j<d; j++){
+            for (int j = 1; j < d; j++){
                 b = b * b2;
                 b = b % n;
             }
             if ( b != 1 && b!= n-1 )
                 ans = false;
 
-            for (int j=1; j<s && !ans; j=j+1){
+            for (int j = 1; j < s && !ans; j++){
                 b = b * b;
                 b = b % n;
                 if ( b == n-1 )
@@ -56,21 +56,21 @@ public class Primes {
         int d = TonelliShanks.evenOdd(n)[1];
         boolean ans = true;
 
-        for (int i=1; i <= k && ans; i++ ){
+        for (int i = 1; i <= k && ans; i++ ){
             double random = Math.random();
             random = random * (n-2) + 2;
             int b = (int) random;
             int b2 = b;
 
-            for (int j=1; j<d; j++)
+            for (int j = 1; j < d; j++)
                 b = (b * b2) % n;
 
-            if ( b != 1 && b != n-1 )
+            if ( b != 1 && b != (n - 1) )
                 ans = false;
 
-            for (int j=1; j<s && !ans; j=j+1){
+            for (int j = 1; j < s && !ans; j++){
                 b = (b * b) % n;
-                if ( b == n-1 )
+                if ( b == n - 1 )
                     ans = true;
             }
         }

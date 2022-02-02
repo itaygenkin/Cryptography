@@ -1,6 +1,7 @@
 public class TonelliShanks {
 
     public static void main (String[] args){
+
         System.out.println(ShanksAlgorithm(127, 30));
     }
 
@@ -20,7 +21,7 @@ public class TonelliShanks {
             i = Arithmetics.leastPow(r, p);
         }
         if ( t == 1 )
-            return p-1;
+            return p - 1;
         return t;
     }
 

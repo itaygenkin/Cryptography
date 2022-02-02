@@ -46,7 +46,7 @@ public class PohligHellman {
 
     public static int[] extractPolynomials(int[] pol1, int[] pol2, int mod){
         int n = Math.min(pol1.length, pol2.length);
-        for (int i=0; i < n ; i++ ){
+        for (int i = 0; i < n ; i++ ){
             int curr = ( pol1[i] - pol2[i] ) % mod;
             pol1[i] = curr;
         }
@@ -100,14 +100,14 @@ public class PohligHellman {
             index = index - 1;
         }
         int[] output = new int[array.length - counter];
-        for (int i=0; i<output.length; i++){
+        for (int i = 0; i < output.length; i++){
             output[i] = array[i];
         }
         return output;
     }
 
     public static void positiveDisplay (int[] pol, int mod){ // verifying that a polynomial is well displayed
-        for (int i=0; i<pol.length; i++){
+        for (int i = 0; i < pol.length; i++){
             while ( pol[i] < 0 )
                 pol[i] = pol[i] + mod;
             pol[i] = pol[i] % mod;
@@ -116,7 +116,7 @@ public class PohligHellman {
 
     public static void printPolynomial (int[] array){
         String str = "";
-        for (int i=array.length-1; i >= 0; i--){
+        for (int i = array.length-1; i >= 0; i--){
             if ( array[i] != 0 ){
                 if ( i == 1 )
                     str = str + Integer.toString(array[i]) + "x";

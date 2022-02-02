@@ -7,8 +7,8 @@ public class Arithmetics {
         int power = 109;
         int r = 1;
 
-//        System.out.println(recModuloPower(base,power,mod));
-//        System.out.println(moduloPower(base,power,mod));
+        System.out.println(recModuloPower(base,power,mod));
+        System.out.println(moduloPower(base,power,mod));
 
     }
 
@@ -23,7 +23,7 @@ public class Arithmetics {
 
     public static int moduloPower (int base, int power, int mod) { //calculates power in finite field
         int ans = 1;
-        for (int i=0; i < power; i=i+1) {
+        for (int i = 0; i < power; i++) {
             ans = ans * base;
             ans = ans % mod;
         }
@@ -44,7 +44,7 @@ public class Arithmetics {
     public static int leastPow (int r, int mod) { // returns the least integer, 'i', which perform r^(2^i)=1 mod p
         int i = 0;
         boolean found = false;
-        for (int j=0; j<=mod & !found; j++) {
+        for (int j = 0; j <= mod & !found; j++) {
             if ( r == 1 )
                 found = true;
             else {
@@ -67,7 +67,7 @@ public class Arithmetics {
 
     public static boolean isGenerator (int n, int g){ //return true/false rather g is a generator in the multiplicative group Z/n
         int[] divisors = divisors(n-1);
-        for (int i=0; i < divisors.length && divisors[i] != 0; i++){
+        for (int i = 0; i < divisors.length && divisors[i] != 0; i++){
             if ( recModuloPower(g, divisors[i], n) == 1 )
                 return false;
         }
@@ -77,14 +77,14 @@ public class Arithmetics {
     public static int[] divisors (int n){ //return an array of the divisors of n except 1 and n
         int[] array = new int[n/2];
         int index = 0;
-        for (int d=2; d <= n/2; d++){
+        for (int d = 2; d <= n/2; d++){
             if ( n % d == 0 ){
                 array[index] = d;
                 index = index + 1;
             }
         }
         int[] arr = new int[index];
-        for (int i=0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++){
             arr[i] = array[i];
         }
         return arr;
@@ -105,7 +105,7 @@ public class Arithmetics {
                 array[index][1] = counter;
                 index = index + 1;
             }
-            d = d + 1;
+            d ++;
         }
         int[][] output = new int[index][2];
         for (int i=0; i < output.length; i++ ){
@@ -130,9 +130,8 @@ public class Arithmetics {
     public static int findQuadraticNonResidue (int p){ //return first integer that is quadratic non-residue in F_p where p is power of an odd prime number
         //TODO: optimize for every integer greater than 2
         int ans = 2;
-        while ( ans < p && isQuadraticResidue(ans, p) ){
-            ans = ans + 1;
-        }
+        while ( ans < p && isQuadraticResidue(ans, p) )
+            ans ++;
         return ans;
     }
 
@@ -183,7 +182,7 @@ public class Arithmetics {
     protected static int[] extractArr (int[] arr1, int[] arr2, int q){
         int n = Math.min(arr1.length, arr2.length);
         int[] output = new int[n];
-        for (int i=0; i < n ; i++){
+        for (int i = 0; i < n ; i++){
             output[i] = arr1[i] - q * arr2[i];
         }
         return output;
