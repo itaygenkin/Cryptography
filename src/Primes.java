@@ -33,17 +33,16 @@ public class Primes {
             int b = (int) random;
             int b2 = b;
 
-            for (int j = 1; j < d; j++){
-                b = b * b2;
-                b = b % n;
-            }
-            if ( b != 1 && b!= n-1 )
+            for (int j = 1; j < d; j++)
+                b = (b * b2) % n;
+
+            if ( b != 1 && b != n - 1 )
                 ans = false;
 
             for (int j = 1; j < s && !ans; j++){
-                b = b * b;
+                b = (b * b) % n;
                 b = b % n;
-                if ( b == n-1 )
+                if ( b == n - 1 )
                     ans = true;
             }
         }

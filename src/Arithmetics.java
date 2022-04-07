@@ -7,12 +7,13 @@ public class Arithmetics {
         int power = 109;
         int r = 1;
 
-        System.out.println(recModuloPower(base,power,mod));
+        System.out.println(moduloPower(base,power,mod));
         System.out.println(moduloPower(base,power,mod));
 
     }
 
-    public static int naiveSqrt (int x, int mod) { //return the square of 'x' modulo 'mod'
+    // return the square of 'x' modulo 'mod'
+    public static int naiveSqrt (int x, int mod) {
         int output = -1;
         for (int i=2; i<mod & output<0; i=i+1) {
             if ( (i * i) % mod == x )
@@ -21,19 +22,20 @@ public class Arithmetics {
         return output;
     }
 
-    public static int moduloPower (int base, int power, int mod) { //calculates power in finite field
-        int ans = 1;
-        for (int i = 0; i < power; i++) {
-            ans = ans * base;
-            ans = ans % mod;
-        }
-        return ans;
-    }
+//    public static int moduloPower (int base, int power, int mod) { //calculates power in finite field
+//        int ans = 1;
+//        for (int i = 0; i < power; i++) {
+//            ans = ans * base;
+//            ans = ans % mod;
+//        }
+//        return ans;
+//    }
 
-    public static int recModuloPower (int base, int power, int mod){ // Recursively calculates power in finite field
+    // Recursively calculates power in finite field
+    public static int moduloPower(int base, int power, int mod){
         int ans = 1;
         if ( power > 0 ) {
-            ans = recModuloPower(base, power / 2, mod);
+            ans = moduloPower(base, power / 2, mod);
             ans = (ans * ans) % mod;
             if ( power % 2 == 1 )
                 ans = (ans * base) % mod;
@@ -41,7 +43,8 @@ public class Arithmetics {
         return ans;
     }
 
-    public static int leastPow (int r, int mod) { // returns the least integer, 'i', which perform r^(2^i)=1 mod p
+    // returns the least integer, 'i', that perform r^(2^i)=1 mod p
+    public static int leastPow (int r, int mod) {
         int i = 0;
         boolean found = false;
         for (int j = 0; j <= mod & !found; j++) {
@@ -56,41 +59,59 @@ public class Arithmetics {
         return i;
     }
 
-    public static boolean isQuadraticResidue (int x, int mod) { //check whether 'x' is a QuadraticResidue in finite field
-        boolean ans = false;
-        int a = recModuloPower(x, (mod-1)/2, mod);
-        if ( a == 1 ) {
-            ans = true;
+    // returns the least integer, 'i', that perform r^(2^i)=1 mod p
+    public static int LeastPow (int r, int mod) {
+        int i = 0;
+        for (int j = 0; j <= mod; j++) {
+            if ( r == 1 )
+                return i;
+            else {
+                r = r * r;
+                r = r % mod;
+                i ++;
+            }
         }
+        return i;
+    }
+
+    // check whether 'x' is a QuadraticResidue in finite field
+    public static boolean isQuadraticResidue (int x, int mod) {
+        boolean ans = false;
+        int a = moduloPower(x, (mod-1)/2, mod);
+        if ( a == 1 )
+            ans = true;
         return ans;
     }
 
-    public static boolean isGenerator (int n, int g){ //return true/false rather g is a generator in the multiplicative group Z/n
+    // return true/false rather g is a generator in the multiplicative group Z/n
+    public static boolean isGenerator (int n, int g){
         int[] divisors = divisors(n-1);
         for (int i = 0; i < divisors.length && divisors[i] != 0; i++){
-            if ( recModuloPower(g, divisors[i], n) == 1 )
+            if ( moduloPower(g, divisors[i], n) == 1 )
                 return false;
         }
         return true;
     }
 
-    public static int[] divisors (int n){ //return an array of the divisors of n except 1 and n
+    // return an array of the divisors of n except 1 and n
+    public static int[] divisors (int n){
         int[] array = new int[n/2];
         int index = 0;
         for (int d = 2; d <= n/2; d++){
             if ( n % d == 0 ){
                 array[index] = d;
-                index = index + 1;
+                index ++;
             }
         }
         int[] arr = new int[index];
-        for (int i = 0; i < arr.length; i++){
+        for (int i = 0; i < arr.length; i++)
             arr[i] = array[i];
-        }
+
         return arr;
     }
 
-    public static int[][] primeDivisors(int n){ //returns a two-dimension array of all the prime divisors and its power
+    // returns a two-dimension array of all the prime divisors and its power
+    public static int[][] primeDivisors(int n){
         int[][] array = new int[n/2][2];
         int index = 0;
         int d = 2;
@@ -100,10 +121,10 @@ public class Arithmetics {
                 array[index][0] = d;
                 while ( n % d == 0 ){
                     n = n / d;
-                    counter = counter + 1;
+                    counter ++;
                 }
                 array[index][1] = counter;
-                index = index + 1;
+                index ++;
             }
             d ++;
         }
@@ -120,14 +141,15 @@ public class Arithmetics {
             System.out.println("{}");
         else{
             System.out.print("{");
-            for (int i=0; i<array.length-1; i++){
+            for (int i = 0; i < array.length - 1; i++){
                 System.out.print(array[i] + ",");
             }
             System.out.println(array[array.length-1] + "}");
         }
     }
 
-    public static int findQuadraticNonResidue (int p){ //return first integer that is quadratic non-residue in F_p where p is power of an odd prime number
+    // return first integer that is quadratic non-residue in F_p where p is power of an odd prime number
+    public static int findQuadraticNonResidue (int p){
         //TODO: optimize for every integer greater than 2
         int ans = 2;
         while ( ans < p && isQuadraticResidue(ans, p) )
@@ -135,7 +157,8 @@ public class Arithmetics {
         return ans;
     }
 
-    public static int gcd (int n, int k){ // iterative gcd
+    // iterative gcd
+    public static int gcd (int n, int k){
         int r = n % k;
         while ( r != 0 ){
             n = k;
@@ -145,7 +168,8 @@ public class Arithmetics {
         return k;
     }
 
-    public static int GCD (int n, int k){ // recursive gcd
+    // recursive gcd
+    public static int GCD (int n, int k){
         if ( k == 0 )
             return n;
         else

@@ -8,13 +8,14 @@ public class PohligHellman {
         myScan.close();
     }
 
-    public static int[] multiplyPolynomials(int[] pol1, int[] pol2, int mod){ // Multiplying 2 polynomials in finite field
+    // Multiplying 2 polynomials in finite field
+    public static int[] multiplyPolynomials(int[] pol1, int[] pol2, int mod){
         int n = pol1.length + pol2.length - 1;
         int[] ans = new int[n];
-        for (int i=0; i<ans.length; i++){
+        for (int i = 0; i < ans.length; i++){
             int curr = 0;
-            for (int j=0; j<=i; j++){
-                if ( j < pol1.length && i-j < pol2.length ){
+            for (int j = 0; j <= i; j++){
+                if ( j < pol1.length && i - j < pol2.length ){
                     curr = curr + pol1[j] * pol2[i-j];
                     curr = curr % mod;
                 }
@@ -26,7 +27,7 @@ public class PohligHellman {
 
     public static int[] powerPolynomial (int[] pol, int[] polMod, int power, int mod){
         int[] ans = {1};
-        for (int i=1; i <= power ; i++){
+        for (int i = 1; i <= power ; i++){
             ans = multiplyPolynomials(ans, pol, mod);
             polynomialRemainder(ans, polMod, mod);
             positiveDisplay(ans, mod);
@@ -80,24 +81,25 @@ public class PohligHellman {
                 pol1 = extractPolynomials(pol1, currQuotient, mod);
                 if ( pol1.length != currLength ){
                     int[] temp = new int[currLength];
-                    for (int i=0; i<pol1.length; i++){
+                    for (int i = 0; i < pol1.length; i++){
                         temp[i] = pol1[i];
                     }
                     pol1 = temp;
                 }
                 positiveDisplay(pol1, mod); // we would rather positive-display of the coefficient of the polynomial
-                index = index - 1;
+                index --;
             }
             return ans;
         }
     }
 
-    public static int[] reduceSize(int[] array){ //reduce the the length of an array which ends with series of 0's
+    // reduce the the length of an array which ends with series of 0's
+    public static int[] reduceSize(int[] array){
         int counter = 0;
         int index = array.length - 1;
-        while ( index > 0 && array[index] == 0 ){ // until index==1 because we don't want an empty array
-            counter = counter + 1;
-            index = index - 1;
+        while ( index > 0 && array[index] == 0 ){ // until index equals 1 because we don't want an empty array
+            counter ++;
+            index --;
         }
         int[] output = new int[array.length - counter];
         for (int i = 0; i < output.length; i++){
@@ -106,7 +108,8 @@ public class PohligHellman {
         return output;
     }
 
-    public static void positiveDisplay (int[] pol, int mod){ // verifying that a polynomial is well displayed
+    // verifying that a polynomial is well displayed
+    public static void positiveDisplay (int[] pol, int mod){
         for (int i = 0; i < pol.length; i++){
             while ( pol[i] < 0 )
                 pol[i] = pol[i] + mod;
