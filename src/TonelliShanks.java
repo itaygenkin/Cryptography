@@ -32,7 +32,7 @@ public class TonelliShanks {
         int[] output = new int[2];
         p --;
         while ( p % 2 == 0 ){
-            output[0] = output[0] + 1;
+            output[0] ++;
             p = p / 2;
         }
         output[1] = p;
