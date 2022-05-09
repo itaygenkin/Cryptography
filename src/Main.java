@@ -6,13 +6,13 @@ public class Main {
         boolean passed = true;
         for (int i = 0; i < 50 & passed; i++){
             int rand = (int) (Math.random() * 1000000 + 2);
-            passed = testDivisors(rand, passed);
+            passed = testDivisors(rand);
         }
         if (passed)
             System.out.println("PASSED ALL TESTS!!!");
     }
 
-    public static boolean testDivisors(int n, boolean passed){
+    public static boolean testDivisors(int n){
         HashMap<Integer, Integer> map = Arithmetics.primeDivisor(n);
         int[][] arr = Arithmetics.primeDivisors(n);
         for (int j = 0; j < arr.length; j ++){

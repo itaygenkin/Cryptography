@@ -132,7 +132,7 @@ public class PohligHellman {
         System.out.println(str);
     }
 
-    //TODO: baby step - giant step algorithm using hash-table
+    //TODO: baby step - giant step algorithm using hash-map
 
 }
 

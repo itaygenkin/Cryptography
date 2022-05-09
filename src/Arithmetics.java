@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Arithmetics {
@@ -18,7 +17,7 @@ public class Arithmetics {
     // return the square of 'x' modulo 'mod'
     public static int naiveSqrt (int x, int mod) {
         int output = -1;
-        for (int i=2; i<mod & output<0; i=i+1) {
+        for (int i = 2; i < mod & output < 0; i++) {
             if ( (i * i) % mod == x )
                 output = i;
         }
