@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Arithmetics {
 
     public static void main(String []args){
@@ -112,7 +115,7 @@ public class Arithmetics {
 
     // returns a two-dimension array of all the prime divisors and its power
     public static int[][] primeDivisors(int n){
-        int[][] array = new int[n/2][2];
+        int[][] array = new int[n/2][2];//
         int index = 0;
         int d = 2;
         while ( n > 1 ){
@@ -128,12 +131,28 @@ public class Arithmetics {
             }
             d ++;
         }
-        int[][] output = new int[index][2];
-        for (int i=0; i < output.length; i++ ){
-            output[i][0] = array[i][0];
-            output[i][1] = array[i][1];
-        }
+        int[][] output = new int[index][2]; //
+        for (int i=0; i < output.length; i++ ){ //
+            output[i][0] = array[i][0]; //
+            output[i][1] = array[i][1]; //
+        } //
         return output;
+    }
+
+    public static HashMap<Integer, Integer> primeDivisor (int n){
+        HashMap<Integer, Integer> divisors = new HashMap<>();
+        int d = 2;
+        while (n > 1) {
+            int counter = 0;
+            while (n % d == 0) {
+                n = n / d;
+                counter++;
+            }
+            if (counter > 0)
+                divisors.put(d, counter);
+            d++;
+        }
+        return divisors;
     }
 
     public static void printArray (int[] array){
